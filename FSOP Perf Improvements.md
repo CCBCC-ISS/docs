@@ -9,7 +9,7 @@ Website Perfomance
 *as of March 4, 2016*
 
 ### Load Times
-Load time was measured three times against the QA site to get an average over VPN. 
+Load time was measured three times against the Dev site to get an average over VPN. 
 The cache was emptied and a hard reload was performed.
 All tests were performed in Chrome Canary 51.0.2665.0 (64-bit).
 <table>
@@ -52,6 +52,60 @@ All tests were performed in Chrome Canary 51.0.2665.0 (64-bit).
 </table>
 
 ---
+*as of March 31, 2016*
+
+### Load Times
+Load time was measured three times against the Dev site to get an average over VPN. 
+The cache was emptied before each test.
+
+#### Safar Developer Preview Version 9.1.1 (11601.6.10, 11602.1.25)
+* 52 files transferred
+* 2.38 MB transferred
+
+<table>
+    <thead>
+	<tr>
+	    <th>DOMContentLoaded</th>
+	    <th>Load</th>
+	</tr>
+    </thead>
+    <tbody>
+	<tr>
+	    <td>1.59 s</td>
+	    <td>1.98 s</td>
+	</tr>
+	<tr>
+	    <td>1.48 s</td>
+	    <td>1.52 s</td>
+	</tr>
+	<tr>
+	    <td>1.73 s</td>
+	    <td>2.43 s</td>
+	</tr>
+	<tr>
+	    <td>1.24 s</td>
+	    <td>1.29 s</td>
+	</tr> 
+	<tr>
+	    <td>1.55 s</td>
+	    <td>1.60 s</td>
+	</tr> 
+	<tr>
+	    <td>1.85 s</td>
+	    <td>1.88 s</td>
+	</tr> 
+	<tr>
+	    <td>2.32 s</td>
+	    <td>2.37 s</td>
+	</tr>
+	<tr>
+	    <td>2.33 s</td>
+	    <td>2.72 s</td>
+	</tr>
+    </tbody>
+</table>
+
+---
 Suggestions
 ---
 Improving load times:
@@ -74,3 +128,9 @@ Improving load times:
 	* `layout.js`
 
 * Either remove the request for the user profile image or fix the server response.
+
+
+Notes
+---
+
+Having so many resources pulled down to the device on initial load will 
