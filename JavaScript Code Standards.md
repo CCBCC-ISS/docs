@@ -1,10 +1,10 @@
 # CCBCC JavaScript Code Standards
 
-These rules are used in JavaScript code linting (codified through either `.jshintrc` or `.eslintrc` files)
-
-## Language-specific rules
+These rules are used in JavaScript code linting (codified through either `.jshintrc` or `.eslintrc` files, 
+or through the `jshintConfig` property in a project's `package.json`).
 
 * Never use `eval`.
+
 * Always use curly braces, even for single line conditional statements.
 
 ```javascript
@@ -20,11 +20,11 @@ These rules are used in JavaScript code linting (codified through either `.jshin
     if (foo) { bar(); }
 ``` 
 
-## Strict mode
+---
 
 Strict mode helps prevent a certain class of bugs from being introduced into our code. 
 
-* Always include the `'use strict'` pragma in your code. Alternatively, you can set the setting the `alwaysStrict` compiler option to `true` for a TypeScript project.
+* Always include the `'use strict'` pragma in your code. 
 
 ```javascript
     // in myFile.js
@@ -39,9 +39,9 @@ Strict mode helps prevent a certain class of bugs from being introduced into our
     }());
 ```
 
-## Comparing and Equality
+---
 
-It's a common pattern in languages like C# to check for null like
+It's a common pattern in languages like C# to check for null like this:
 
 ```csharp
     if (myObj == null) {
@@ -49,7 +49,7 @@ It's a common pattern in languages like C# to check for null like
     }
 ```
 
-In JavaScript, the above code is legal, but it may give unexpected results.
+In JavaScript, the above code is legal, but it might give unexpected results.
 
 There are two equality comparison operators in JavaScript, `==` (equality) and `===` (strict equality). Strict equality doesn't type cast.
 
@@ -80,8 +80,6 @@ You can also take advantage of the type system to be sure that an object is not 
 
 * Always use `===` (strict equality comparison) when comparing values. If you use `==`, document why it was necessary.
 
-## IIFE
-
 * Immediately invoked function expressions should have their argument parenthese inside of the enclosing parentheses.
 
 ```javascript
@@ -95,8 +93,6 @@ You can also take advantage of the type system to be sure that an object is not 
         
     }());
 ```
-
-## Spacing, Formatting and Syntax
 
 * When declaring a top level function, include a space between the `function` keyword, the function name, and the arguments list.
 * Include a space between the closing parentheses of the arguments list and the opening curly brace of the function body.
@@ -154,58 +150,82 @@ operators encourages a more consistent coding style.
 
 --- 
 
-## Language Clarification
-### `for...of` vs.`for...in`
-
-* `for...in` enumerates the keys of an object
-
+* Use camel casing for variable names and Pascal casing for class names.
 ```javascript
-    const arr = ['a', 'b', 'c', 'd'];
-    for (let key in arr) { 
-        let localVar = arr[key]; // 'key' is set to 0
-        ...
-    }
+    let myVar = 42;
+
+    class MyClass = {};
 ```
-
-* `for...of` enumerates the values of an object
-
-```javascript
-    cost arr = ['a', 'b', 'c', 'd'];
-    for (const letter of arr) {
-        console.log(letter); // 'letter' is set to 'a'
-    }
-```
-
-* There is a little-known syntax of `for...in` that can be incredibly useful and even elegant at times.
-
-```javascript
-    const myObj = {a: 1, b: 2, c: 3}; 
-    let myKeys = [], 
-        i = 0;
-     
-    for (myKeys[i++] in myObj);
-     
-    myKeys; // ['a','b','c'];
-```
-
-Read [this](https://javascriptweblog.wordpress.com/2011/01/04/exploring-javascript-for-in-loops/) for more information about `for...in` loops.
 
 ---
 
-## TypeScript
-### `const`, `let`, `var`
+* Use ES6 syntax where possible. 
 
-* Always declare variables `const` when possible. If a variable will be written to, declare it with `let`. If you must use `var`, add a comment documenting why `var` was necessary in that special case.
+*Note* ES6 syntax is <i>*not*</i> supported in Internet Explorer. If you must support a legacy application you should either avoid ES6 features or transpile your code to ES5.
 
-### Type Inference
+The `class` keyword and syntax is syntactic sugar over the typical function declaration style.
+```javascript
+    class MyClass {
+        constructor() {
+            this._prop = 42;
+        }
+        
+        // classes can have static properties available to all instances
+        // MyClass.classProp
+        static classProp = 'a static variable';
 
-* Let the TypeScript compiler help you write less code. If you assign a value to a variable when you declare it, you don't need to give it an explicit type.
+        // classes can have properties and methods
+        myFirstProperty = "bar";
+        
+        myMethod() {
+            return "foo";
+        }
+
+        // classes can have getters and setters for properties
+        get myProp {
+            return this._prop;
+        }
+        
+        // you can put custom logic in getters and setters
+        set myProp(val) {
+            this._prop = val * 2;
+        }
+    }
+    
+    // VS.
+
+    var MyClass = function () {
+        this._prop = 42;
+    };
+
+    MyClass.prototype.myMethod = function () {
+        return "foo";
+    };
+    // etc...
+```
+
+`const` declares a constant and requires a value at initialization.
+
+`let` declares a variable that obeys block scoping.
+
+* Use `const` and `let` instead of `var`. If you <i>must</i> use `var`, add comments explaining why it's needed.
 
 ```javascript
-    // Correct
-    const myString = "A string"; // String type
-    let someObj = {}; // Object type
+    const kGLOBAL_ID = 1000000;
 
-    // Wrong
-    const myArray: Array = []; // unnecessary  
+    const id = function () {
+        let x = Math.rand();
+
+        return x * kGLOBAL_ID;
+    };
 ```
+
+Arrow functions are more concise than using the `function` keyword. 
+
+* Use arrow functions for non-method functions.
+
+```javascript
+    [0, 1, 2, 3, 4].map(n => n * 2);
+    // [0, 2, 4, 6, 8]
+```
+
