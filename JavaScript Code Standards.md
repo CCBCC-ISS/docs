@@ -3,7 +3,29 @@
 These rules are used in JavaScript code linting (codified through either `.jshintrc` or `.eslintrc` files, 
 or through the `jshintConfig` property in a project's `package.json`).
 
+---
+
+`eval` is a way to execute raw JavaScript source code within a JavaScript context.
+
+```javascript
+    //myFile.js
+
+    var source = 'var foo() { }';
+    eval(source);
+```
+
+`eval` has the same privilages as it's caller. If any of the input to `eval` is touched by a third-party it could be compromised and you could
+be running malicious code.
+
+`eval` is almost always slower than it's alternativs (`eval`ed code is interpreted, and interpreters are the bottom tier of JS engines).
+
 * Never use `eval`.
+
+
+JavaScript doesn't <i>require</i> semicolons, but a missing semicolon can lead to strange results. 
+
+* Always end lines with a semicolon.
+
 
 * Always use curly braces, even for single line conditional statements.
 
