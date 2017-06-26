@@ -27,12 +27,29 @@ JavaScript doesn't <i>require</i> semicolons, but a missing semicolon can lead t
 * Always end lines with a semicolon.
 
 
-* Always use curly braces, even for single line conditional statements.
+Even though JavaScript engines try to be smart, sometimes they can still get things wrong. If a curly brace is not on the same line as a function declaration,
+the engine might interpret the declaration as invocation. 
+
+In addition, it can be very easy to write several statements after a control flow statement.
+
+* Always use curly braces, even for single line conditional statements, on the same line as the conditional statement.
 
 ```javascript
     // Wrong
     if (foo) 
         bar();
+        baz(); // baz will get call regardless of the truthiness of foo
+    
+    if (foo)
+    {
+        bar();
+    }
+
+    // engine may see this as calling myFunc
+    myFunc()
+    {
+        //...
+    }
     
     // Correct
     if (foo) {
