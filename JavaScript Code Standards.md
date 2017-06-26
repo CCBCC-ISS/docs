@@ -3,6 +3,12 @@
 These rules are used in JavaScript code linting (codified through either `.jshintrc` or `.eslintrc` files, 
 or through the `jshintConfig` property in a project's `package.json`).
 
+Linting is the process of flagging anything suspicious looking in source code. Suspicious, in this case, being
+constructs and statements that are syntactially legal but violate coding standards, commonly introduce bugs, 
+make the code less maintainable, or otherwise cause headaches for develoeprs.
+
+See the entry on the tool [lint](https://en.wikipedia.org/wiki/Lint_%28software%29) for more information.
+
 ---
 
 `eval` is a way to execute raw JavaScript source code within a JavaScript context.
